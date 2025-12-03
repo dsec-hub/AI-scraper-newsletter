@@ -18,6 +18,7 @@ class ScrapeStaticData():
 
         self.clean_text = ""
         self.author = ""
+        self.title = ""
         self.date_published = ""
         self.links = []
         self.tags = []
@@ -36,6 +37,7 @@ class ScrapeStaticData():
 
                 if response.status_code == 200:
                     print(f"success {self.domain}")
+                    self.return_json_output()
                     return BeautifulSoup(response.content, "html.parser")
 
                 else:
@@ -68,9 +70,13 @@ class ScrapeStaticData():
 
 
     def extract_text(self):
+
+
         html = self.fetch_site()
 
         #title
+
+
 
 
 
@@ -82,7 +88,7 @@ class ScrapeStaticData():
             "source_domain": self.domain,
             "scraped_at": self.date_now,
             "content_type": self.content_type,
-            "title": "...",
+            "title": self.title,
             "author": "... or null",
             "published_date": "ISO string or null",
             "text": "clean text only",
@@ -93,7 +99,7 @@ class ScrapeStaticData():
             }
         }
 
-        return orjson.dumps(json_schema).decode()
+        return print(orjson.dumps(json_schema).decode())
 
 
 

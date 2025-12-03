@@ -30,5 +30,5 @@ AI Automation System will deliver a scalable, intelligence-driven pipeline that 
 
 ## Contributions
 
-* Lead Developer: [RythonDev] (https://github.com/liyunze-coding)
-* Developer : [Milad](https://github.com/Zynzx101)
+* Lead Developer: Ryan - (https://github.com/liyunze-coding)
+* Developer: Milad - (https://github.com/Zynzx101)
