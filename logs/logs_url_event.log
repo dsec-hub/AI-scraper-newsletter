@@ -1,0 +1,17 @@
+2025-12-04 18:10:57,191 - OK - INFO - https://daringfireball.net - 248ms
+2025-12-04 18:10:58,678 - OK - INFO - https://arstechnica.com - 1461ms
+2025-12-04 18:10:59,039 - OK - INFO - https://theregister.com - 285ms
+2025-12-04 18:10:59,452 - OK - INFO - https://slashdot.org - 378ms
+2025-12-04 18:11:00,217 - OK - INFO - https://lwn.net - 727ms
+2025-12-04 18:11:05,242 - HTTPSConnectionPool(host='hackernews.org', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x00000214CE6F0690>, 'Connection to hackernews.org timed out. (connect timeout=5)')) - INFO - https://hackernews.org - 5016ms
+2025-12-04 18:11:06,817 - OK - INFO - https://tomshardware.com - 1573ms
+2025-12-04 18:11:08,907 - OK - INFO - https://anandtech.com - 1995ms
+2025-12-04 18:11:09,895 - OK - INFO - https://phoronix.com - 931ms
+2025-12-04 18:11:12,061 - OK - INFO - https://howtogeek.com - 2143ms
+2025-12-04 18:11:12,178 - Forbidden - INFO - https://ghacks.net - 64ms
+2025-12-04 18:11:13,247 - Forbidden - INFO - https://ghacks.net - 1133ms
+2025-12-04 18:11:15,296 - Forbidden - INFO - https://ghacks.net - 3181ms
+2025-12-04 18:11:20,839 - OK - INFO - https://osnews.com - 1543ms
+2025-12-04 18:11:21,285 - OK - INFO - https://betanews.com - 415ms
+2025-12-04 18:11:21,832 - OK - INFO - https://techspot.com - 534ms
+2025-12-04 18:11:21,919 - Forbidden - INFO - https://neowin.net - 56ms

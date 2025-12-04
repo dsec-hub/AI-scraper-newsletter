@@ -5,21 +5,7 @@ from urllib.parse import urlparse
 import orjson
 import uuid
 from datetime import datetime
-import logging
-
-
-
-#logger setup
-file_logger = logging.getLogger("url_events")
-file_logger.setLevel(logging.INFO)
-
-if not file_logger.handlers:
-    handler = logging.FileHandler("logs_url_event.log")
-    formatter = logging.Formatter(
-        "%(asctime)s - %(url)s - %(levelname)s - %(status)s - %(duration)s"
-    )
-    handler.setFormatter(formatter)
-    file_logger.addHandler(handler)
+import log_data
 
 
 class ScrapeStaticData():
@@ -33,6 +19,7 @@ class ScrapeStaticData():
         self.date_now = ''
         self.user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0'}
 
+
         self.clean_text = ''
         self.author = ''
         self.title = ''
@@ -40,7 +27,9 @@ class ScrapeStaticData():
         self.links = []
         self.tags = []
         self.raw_html_length = '' 
-        self.logger = file_logger
+
+    
+
 
 
     def current_milli_time(self):
@@ -61,11 +50,11 @@ class ScrapeStaticData():
                 if response.status_code == 200:
                     print(f'success {self.domain}')
                     self.return_json_output(url)
-                    self.log_events(url,response.reason, time_in_milliseconds)
+                    log_data.log_events(url,response.reason, time_in_milliseconds)
                     return BeautifulSoup(response.content, 'html.parser')
 
                 else:
-                    self.log_events(url,response.reason, time_in_milliseconds)
+                    log_data.log_events(url,response.reason, time_in_milliseconds)
                     print('Failed to fetch page.' \
                         f'HTTP Status Code: {response.status_code}.' \
                         f'Domain: {self.domain}' \
@@ -75,12 +64,10 @@ class ScrapeStaticData():
                     time.sleep(2 ** retry)
                 
             except requests.RequestException as e:
-                self.log_events(url, e , time_in_milliseconds)
+                log_data.log_events(url, e , time_in_milliseconds)
                 print(f'Error during request: {e}')
                 return
         
-
-
 
 
 
@@ -88,21 +75,6 @@ class ScrapeStaticData():
         for url in self.urls:
             self.fetch_site(url, max_tries=3,
                                         timeout=5)
-
-
-    def log_events(self, problem, url, time_in_milliseconds):
-        duration_end = self.current_milli_time()
-        run_time_ms =  duration_end - time_in_milliseconds
-
-        log_info = {
-            'url': url,
-            'status': problem,
-            'duration': f'{run_time_ms}ms',
-        }
-
-        self.logger.info("Logged Info", extra=log_info)
-        
-
 
 
     def extract_text(self):
@@ -113,10 +85,6 @@ class ScrapeStaticData():
         #title
 
 
-
-
-
-
     def return_json_output(self, url):
         json_schema = {
             'id': self.unique_hash,
@@ -125,18 +93,17 @@ class ScrapeStaticData():
             'scraped_at': self.date_now,
             'content_type': self.content_type,
             'title': self.title,
-            'author': '... or null',
-            'published_date': 'ISO string or null',
-            'text': 'clean text only',
-            'links': ['https://...'],
+            'author': self.author,
+            'published_date': self.date_published,
+            'text': self.clean_text,
+            'links': self.links,
             'metadata': {
-                'tags': [],
-                'raw_html_length': 12345
+                'tags': self.tags,
+                'raw_html_length': self.raw_html_length
             }
         }
 
         return print(orjson.dumps(json_schema).decode())
-
 
 
 
