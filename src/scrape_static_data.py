@@ -12,15 +12,15 @@ class ScrapeStaticData():
     def __init__(self, urls):
         self.urls = urls
         self.content_type = ''
-        self.unique_hash = None
-        self.domain = ''
-        self.date_now = ''
+        self.unique_hash = None #populated by fetch site
+        self.domain = '' #populated by fetch site
+        self.date_now = ''#populated by fetch site
         self.user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0'}
 
-        self.clean_text = ''
-        self.author = ''
-        self.title = ''
-        self.date_published = ''
+        self.clean_text = '' #populated by extract_text
+        self.author = '' #populated by extract_text
+        self.title = '' #populated by extract_text
+        self.date_published = '' #populated by extract_text
         self.links = []
         self.tags = []
         self.raw_html_length = '' 
@@ -50,7 +50,9 @@ class ScrapeStaticData():
                     print(f'success {self.domain}')
                     self.return_json_output()
                     self.log_events(url,response.status_code, time_in_milliseconds)
-                    return BeautifulSoup(response.content, 'html.parser')
+                    soup= BeautifulSoup(response.content, 'html.parser')
+                    self.extract_text(soup)
+
 
                 else:
                     self.log_events(url,response.status_code, time_in_milliseconds)
@@ -95,7 +97,8 @@ class ScrapeStaticData():
 
 
 
-    def extract_text(self):
+    def extract_text(self, soup):
+        
 
         pass
         # html = self.fetch_site()
