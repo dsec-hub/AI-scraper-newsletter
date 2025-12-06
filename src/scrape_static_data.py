@@ -48,10 +48,12 @@ class ScrapeStaticData():
 
                 if response.status_code == 200:
                     print(f'success {self.domain}')
-                    self.return_json_output()
-                    self.log_events(url,response.status_code, time_in_milliseconds)
-                    soup= BeautifulSoup(response.content, 'html.parser')
-                    self.extract_text(soup)
+                    soup = BeautifulSoup(response.content, 'html.parser')      
+                    self.extract_text(soup)                                    
+                    self.return_json_output()                                  
+                    self.log_events(url, response.status_code, time_in_milliseconds)
+                    return soup
+
 
 
                 else:
@@ -175,12 +177,12 @@ class ScrapeStaticData():
 
         author = ""
 
-        meta_author = soup.find("meta", attrs={"name": "author"})
+        meta_author = soup.find("meta",attrs={"name": "author"})
         if meta_author and meta_author.get("content"):
             author = meta_author["content"].strip()
 
         if not author:
-            meta_author = soup.find("meta", attrs={"property": "article:author"})
+            meta_author = soup.find("meta",attrs={"property": "article:author"})
             if meta_author and meta_author.get("content"):
                 author = meta_author["content"].strip()
 
@@ -237,10 +239,6 @@ class ScrapeStaticData():
             self.read_time_minutes = max(1, round(word_count / 200))
         else:
             self.read_time_minutes = 0
-
-
-
-
 
 
     def return_json_output(self):
