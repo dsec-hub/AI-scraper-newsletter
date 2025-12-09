@@ -45,5 +45,3 @@ class ScrapeStaticData():
 
             
 
-class_instance = ScrapeStaticData()
-result = class_instance.run_scraper()
