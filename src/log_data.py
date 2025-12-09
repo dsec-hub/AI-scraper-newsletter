@@ -1,13 +1,14 @@
 import logging
 import time
-import re
+from datetime import datetime
 
 #logger setup
 file_logger = logging.getLogger('url_events')
 file_logger.setLevel(logging.INFO)
+date_now = datetime.now().strftime("%Y_%m_%dT%H_%M_%S_%f")
 
 if not file_logger.handlers:
-    handler = logging.FileHandler('../logs/logs_url_event.log')
+    handler = logging.FileHandler(f'./logs/logs_url_event_{date_now}.log')
     formatter = logging.Formatter(
         '%(asctime)s - %(url)s - %(levelname)s - %(status)s - %(duration)s'
     )
