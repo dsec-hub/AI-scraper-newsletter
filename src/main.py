@@ -1,14 +1,11 @@
-from scrape_static_data import ScrapeStaticData
+from scrape_runner import ScrapeRunner
 
 
 def main():
-    #code to check if site is static or dynamic
 
-    #call class if static
-    static_scrape_class = ScrapeStaticData()
+    static_scrape_class = ScrapeRunner()
     static_scrape_class.run_scraper()
 
-    #call class if dynamic
 
 
 

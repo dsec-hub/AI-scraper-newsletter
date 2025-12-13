@@ -7,7 +7,6 @@ class ScraperOutput():
         for key, value in scraper_data.items():
             setattr(self, key, value)
         
-        self.content_type = "Place Holder" #Pass LLM content_type here
 
     def scraper_json_output(self):
             
@@ -22,7 +21,6 @@ class ScraperOutput():
             'date_published': self.date_published,
             'clean_text': self.clean_text,
             'links': self.links,
-            'status': self.status,
             'metadata': {
                 'tags': self.tags,
                 'raw_html_length': self.raw_html_length
