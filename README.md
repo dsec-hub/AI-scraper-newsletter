@@ -27,7 +27,7 @@ AI Automation System will deliver a scalable, intelligence-driven pipeline that 
 4. Run project
 
     ```bash
-    uv run main.py
+    python -m app.main
     ```
 
 Note: 

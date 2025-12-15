@@ -1,10 +1,6 @@
 
-
-
 class ParseHTML():
     def __init__(self):
-
-
         self.title = ''
         self.author = ''
         self.date_published = ''

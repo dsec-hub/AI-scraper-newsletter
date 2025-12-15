@@ -3,11 +3,11 @@ from datetime import datetime
 import uuid
 from urllib.parse import urlparse
 import requests
-from log_data import log_events
+from app.utils.log_data import Logger
 from bs4 import BeautifulSoup
 
 
-class FetchHtml():
+class FetchHtml:
     def __init__(self):
         self.max_tries = 3
         self.timeout = 5
@@ -18,7 +18,6 @@ class FetchHtml():
 
 
     def export_results(self):
-        
         self.result_list_fetcher = {
             'unique_hash': self.unique_hash,
             'url': self.unique_url,
@@ -27,12 +26,9 @@ class FetchHtml():
             'status': self.status
         }
 
-            
-
     def fetch_sites(self, url):
-
+        logger = Logger()
         time_in_milliseconds = round(time.time() * 1000)
-
 
         try:
             self.unique_hash = uuid.uuid4()
@@ -41,7 +37,7 @@ class FetchHtml():
             self.unique_url = url
 
             response = requests.get(url, allow_redirects=True, timeout=self.timeout, headers=self.user_agent)
-            log_events(url,response.reason, time_in_milliseconds)
+            logger.log_events(url,response.reason, time_in_milliseconds)
 
             if response.status_code == 200:
                 print(f'success {self.domain}')
@@ -53,7 +49,7 @@ class FetchHtml():
                 self.status = 'failed'
                 for retry in range(self.max_tries):
                     response = requests.get(url, allow_redirects=True, timeout=self.timeout, headers=self.user_agent)
-                    log_events(url,response.reason, time_in_milliseconds)
+                    logger.log_events(url,response.reason, time_in_milliseconds)
                     if response.status_code == 200:
                         self.status = 'success'
                         self.export_results()
@@ -66,8 +62,6 @@ class FetchHtml():
                                 
         except requests.RequestException as error:
             self.status = 'failed'
-            log_events(url, error , time_in_milliseconds)
+            logger(url, error , time_in_milliseconds)
             print(f'Error during request: {error}')
             self.export_results()
-
-

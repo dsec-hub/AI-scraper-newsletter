@@ -1,28 +1,23 @@
-from fetch_html import FetchHtml
-from  parse_html import ParseHTML
-from scraper_output import ScraperOutput
+from app.core.fetch_html import FetchHtml
+from app.core.parse_html import ParseHTML
+from app.core.scraper_output import ScraperOutput
 import os 
 import yaml 
 
 def return_config_urls() -> str:
     print(os.getcwd())
-    with open('./src/urls.yaml', 'r') as config:
+    with open('./app/config/urls.yaml', 'r') as config:
         loaded_config = yaml.safe_load(config)
 
     return loaded_config['urls']
 
 
 class ScrapeStaticData():
-
-
     def __init__(self):
         self.fetch_html_class = FetchHtml()
         self.parse_html_class = ParseHTML()
         self.urls = return_config_urls()
         self.scraper_data = {}
-
-    
-
 
     def run_scraper(self):
 

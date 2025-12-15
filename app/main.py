@@ -1,4 +1,4 @@
-from scrape_static_data import ScrapeStaticData
+from .core.scrape_static_data import ScrapeStaticData
 
 
 def main():
@@ -9,8 +9,6 @@ def main():
     static_scrape_class.run_scraper()
 
     #call class if dynamic
-
-
 
 if __name__ == "__main__":
     main()

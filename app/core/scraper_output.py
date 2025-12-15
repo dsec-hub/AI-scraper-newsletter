@@ -1,8 +1,7 @@
-
 import orjson 
 
 
-class ScraperOutput():
+class ScraperOutput:
     def __init__(self, scraper_data:dict):
         for key, value in scraper_data.items():
             setattr(self, key, value)
@@ -29,6 +28,6 @@ class ScraperOutput():
             }
         }
 
-
+        print(orjson.dumps(json_schema).decode())
         
-        return print(orjson.dumps(json_schema).decode())
+        return 
