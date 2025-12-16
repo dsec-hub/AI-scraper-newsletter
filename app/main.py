@@ -1,4 +1,4 @@
-from .core.scrape_static_data import ScrapeStaticData
+from .core import ScrapeStaticData
 
 
 def main():

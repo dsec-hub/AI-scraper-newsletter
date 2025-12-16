@@ -3,7 +3,7 @@ from datetime import datetime
 import uuid
 from urllib.parse import urlparse
 import requests
-from app.utils.log_data import Logger
+from app.utils import Logger
 from bs4 import BeautifulSoup
 
 
@@ -62,6 +62,6 @@ class FetchHtml:
                                 
         except requests.RequestException as error:
             self.status = 'failed'
-            logger(url, error , time_in_milliseconds)
+            logger.log_events(url, error , time_in_milliseconds)
             print(f'Error during request: {error}')
             self.export_results()
