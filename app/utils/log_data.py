@@ -1,15 +1,23 @@
 import logging
 import time
 from datetime import datetime
+import os.path
 
 class Logger:
     def __init__(self):
+        path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'logs'))
+
+        if os.path.exists(path) == False:
+            os.mkdir(path)
+
         file_logger = logging.getLogger('url_events')
         file_logger.setLevel(logging.INFO)
         date_now = datetime.now().strftime("%Y_%m_%dT%H_%M_%S_%f")
 
+
+        
         if not file_logger.handlers:
-            handler = logging.FileHandler(f'./logs/logs_url_event_{date_now}.log')
+            handler = logging.FileHandler(f'{path}/logs_url_event_{date_now}.log')
             formatter = logging.Formatter(
                 '%(asctime)s - %(url)s - %(levelname)s - %(status)s - %(duration)s'
             )
