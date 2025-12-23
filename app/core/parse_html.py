@@ -1,43 +1,17 @@
+from urllib.parse import urlparse
+import uuid
+from datetime import datetime
+import orjson
 
-class ParseHTML():
-    def __init__(self):
-        self.title = ''
-        self.author = ''
-        self.date_published = ''
-        self.clean_text = ''
-        self.links = []
-        self.tags = []
-        self.raw_html_length = '' 
+class ParseHTML:
 
-        self.result_list_parser = {}
-
-
-    def export_results(self):
-        self.result_list_parser =  {
-                'title': self.title,
-                'author': self.author,
-                'date_published': self.date_published,
-                'clean_text': self.clean_text,
-                'links': self.links,
-                'tags': self.tags,
-                'raw_html_length': self.raw_html_length,
-            }
-        
-
-    def scrape_html(self, html):
+    def scrape_html(self, html) -> dict:
              
             if html is None: #check if fetcher had an exception/error
-                self.title = ''
-                self.author = ''
-                self.date_published = ''
-                self.clean_text = ''
-                self.links = []
-                self.tags = []
-                self.raw_html_length = '' 
-                self.export_results() #needed to prevent outputing previous results.
                 return 'Cannot Parse Html due to error Fetching.'
             
-            self.raw_html_length = len(str(html)) 
+
+            raw_html_length = len(str(html)) 
 
             title = ""
 
@@ -53,7 +27,7 @@ class ParseHTML():
                 if h1:
                     title = h1.get_text(" ", strip=True)
 
-            self.title = title
+            
 
             main_container = html.find("article")
             if main_container is None:
@@ -81,7 +55,7 @@ class ParseHTML():
                 paragraph_nodes = html.find_all("p")
 
 
-            #title
+            
             for p in paragraph_nodes:
                 text = p.get_text(" ", strip=True)
                 if text:
@@ -100,7 +74,6 @@ class ParseHTML():
                 if whole_page_text:
                     text_joined = whole_page_text
 
-            self.clean_text = text_joined
 
             if main_container:
                 link_nodes = main_container.find_all("a", href=True)
@@ -113,7 +86,6 @@ class ParseHTML():
                 if href:
                     links.append(href)
 
-            self.links = links
 
             author = ""
 
@@ -138,7 +110,6 @@ class ParseHTML():
                 if byline:
                     author = byline.get_text(" ", strip=True)
 
-            self.author = author
 
             date_value = ""
 
@@ -165,7 +136,6 @@ class ParseHTML():
                         date_value = time_tag.get_text(" ", strip=True)
 
 
-            self.date_published = date_value
 
 
             tags = []
@@ -174,18 +144,47 @@ class ParseHTML():
                 raw_keywords = meta_keywords["content"]
                 tags = [kw.strip() for kw in raw_keywords.split(",") if kw.strip()]
 
-
-            self.tags = tags
-
-
-            word_count = len(self.clean_text.split())
+            word_count = len(text_joined.split())
             if word_count > 0:
-                self.read_time_minutes = max(1, round(word_count / 200))
+                read_time_minutes = max(1, round(word_count / 200))
             else:
-                self.read_time_minutes = 0
+                read_time_minutes = 0
 
+            source_url = None
+            #canonical is where source url is often stored
+            canonical = html.find("link", rel="canonical")
+            if canonical and canonical.get("href"):
+                source_url = canonical["href"]
 
-
+            #fallback if canonical is not found
+            og = html.find("meta", property="og:url")
+            if og and og.get("content"):
+                source_url = og["content"]
             
-            self.export_results()
+            source_domain = urlparse(source_url).netloc
+                
+            site_id = str(uuid.uuid4())
+            
+            scraped_at = datetime.now().isoformat()
+            content_type = "article | event | course | discount | contact | unknown"
 
+
+            json_schema = {
+                'id': site_id,
+                'source_url': source_url,
+                'domain': source_domain , 
+                'scraped_at': scraped_at,
+                'content_type': content_type,
+                'title': title,
+                'author': author,
+                'date_published':date_value,
+                'text': text_joined,
+                'links': links,
+                'tags': tags,
+                'raw_html_length': raw_html_length,
+                'read_time_minutes': read_time_minutes
+            }
+
+
+
+            return json_schema
