@@ -19,7 +19,13 @@ AI Automation System will deliver a scalable, intelligence-driven pipeline that 
 
     ```bash
     uv venv
-    .venv/Scripts/Activate # Activate Virtual environment
+
+    Linux & MacOS:
+    source .venv/bin/activate # Activate Virtual environment
+
+    Windows:
+    .venv\Scripts\activate
+    
 
     uv sync
     ```
