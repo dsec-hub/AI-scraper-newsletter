@@ -42,7 +42,7 @@ Open the project from the root directory `AI-scraper-newsletter/` with something
 	
 
 Note: 
-If you want to install new dependencies, use
+If you want to install new dependencies:
 **only works if you created a virtual environment from step 3**
 
 ```
