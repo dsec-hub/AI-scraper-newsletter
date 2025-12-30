@@ -14,3 +14,10 @@ wheels/
 *.json
 *.jsonl
 
+# environment variables - sensitive
+app/config/.env
+
+
+
+
+

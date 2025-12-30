@@ -14,6 +14,10 @@ class ScraperOutput:
 
         if os.path.exists(path) == False:
             os.mkdir(path)
+        
+        if data == None:
+            return False
+        
             
         with jsonlines.open(f'{path}/article.jsonl', mode='a') as article_records:
             article_records.write(str(data))
