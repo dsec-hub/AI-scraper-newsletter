@@ -2,6 +2,8 @@ from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 from app.utils import Logger
 import time
+import os
+import sys
 
 
 
@@ -24,9 +26,11 @@ class FetchSite:
 
                 return stripped_html
             
-            except Exception as error:
+            except Exception:
                 logger.log_events(problem=response.status, url=url, time_in_milliseconds=timer_started)
-                print(f"Fetch Site Error: {error}")
+                exc_type, exc_tb = sys.exc_info()
+                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                print(f"{fname} File Error: Exception:{exc_type},  Line:{exc_tb.tb_lineno}")
 
 
         

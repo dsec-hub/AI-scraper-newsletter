@@ -1,4 +1,5 @@
-#Urls must be of individual articles
-urls: 
-  - https://www.examplearticle1.com
-  - https://www.examplearticle2.com
+#urls must be of individual articles
+
+urls:
+ https://www.examplearticle1.com
+ https://www.examplearticle2.com

@@ -1,0 +1,19 @@
+#Invidivual Category Labels
+#Rule: ensure label name is followed by a simple one sentence definition of what you are looking for.
+#Reason: allows the llm to better understand what you are searching for, ensuring a more accurate confidence score.
+
+labels:
+  tech_news - Updates or announcements about developments, trends, or changes in the technology industry.
+
+  tech_event - Information about technology-related events such as conferences, meetups, launches, or webinars.
+
+  melbourne_event - Details about events specifically taking place in Melbourne, regardless of industry or theme.
+
+  course - Educational offerings such as classes, workshops, bootcamps, or structured learning programs.
+
+  tech_discount - Promotions, deals, or special pricing related to technology products or services.
+
+  contact_info - Direct details used to reach an individual or organization, such as email addresses, phone numbers, or social links.
+
+  sponsorship_lead - Potential opportunities or contacts related to sponsoring an event, product, or initiative.
+

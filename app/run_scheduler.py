@@ -13,6 +13,8 @@ def return_config_urls() -> str:
     return loaded_config['urls']
 
 
+
+
 class Scraper:
     def __init__(self):
         self.fetch_site_class = FetchSite
