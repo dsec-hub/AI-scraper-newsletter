@@ -17,14 +17,27 @@ AI Automation System will deliver a scalable, intelligence-driven pipeline that 
 
 3. Create Virtual Environment and install project dependencies
 
-    ```bash
-    uv venv
-    .venv/Scripts/Activate # Activate Virtual environment
+   Linux & MacOS:
+   ```bash
+       uv venv
+   
+       source .venv/bin/activate
 
-    uv sync
-    ```
+       uv sync
+   ```
 
-4. Run project
+   Windows
+
+   ```bash
+      uv venv
+   
+      .venv\Scripts\activate
+   
+      uv sync
+   ```
+
+
+5. Run project
 
 You can run the project using either the command line or your IDE/editor.
 
